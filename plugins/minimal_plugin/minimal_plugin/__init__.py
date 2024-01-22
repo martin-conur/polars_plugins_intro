@@ -1,5 +1,6 @@
 import polars as pl
 from polars.utils.udfs import _get_shared_lib_location
+from polars.type_aliases import IntoExpr
 
 lib = _get_shared_lib_location(__file__)
 
@@ -22,3 +23,13 @@ class MinimalExamples:
             symbol="abs_i64",
             is_elementwise=True
         )
+    
+    def sum_i64(self, other:IntoExpr) -> pl.Expr:
+        return self._expr.register_plugin(
+            lib=lib,
+            symbol="sum_i64",
+            is_elementwise=True,
+            args=[other]
+        )
+    
+    
