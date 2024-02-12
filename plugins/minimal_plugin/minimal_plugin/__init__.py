@@ -91,3 +91,12 @@ def weighted_standard_deviation(expr: IntoExpr, weights: IntoExpr) -> pl.Expr:
         is_elementwise=True,
         args=[weights]
     )
+
+def shift_struct(expr: IntoExpr) -> pl.Expr:
+    expr = parse_into_expr(expr)
+    return expr.register_plugin(
+        lib=lib,
+        symbol="shift_struct",
+        is_elementwise=True
+    )
+
